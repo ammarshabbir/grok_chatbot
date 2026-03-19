@@ -48,12 +48,7 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
 
   askGenAI() async {
     var inputText = textEditingController.text;
-    chatHistory.add({
-      "role": "user",
-      "parts": [
-        {"text": inputText},
-      ],
-    });
+    chatHistory.add({"role": "user", "content": inputText});
     messages.insert(
       0,
       ChatMessage(user: myUser, createdAt: DateTime.now(), text: inputText),
@@ -62,13 +57,9 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
       messages;
     });
     textEditingController.clear();
-    results = await chatService.askGenAI(chatHistory);
-    chatHistory.add({
-      "role": "model",
-      "parts": [
-        {"text": results},
-      ],
-    });
+    results = await chatService.askGrok(chatHistory);
+    chatHistory.add({"role": "assistant", "content": results});
+
     messages.insert(
       0,
       ChatMessage(user: genAI, createdAt: DateTime.now(), text: results),
@@ -99,19 +90,21 @@ class _ChatbotScreenState extends State<ChatbotScreen> {
     if (imageResult.hasImage) {
       messages.insert(
         0,
-        ChatMessage(
-          user: genAI,
-          createdAt: DateTime.now(),
-          text: imageResult.text ?? "",
-          medias: [
-            ChatMedia(
-              url: "",
-              fileName: "gemini.png",
-              type: MediaType.image,
-              customProperties: {"bytesBase64": imageResult.imageBase64},
+            ChatMessage(
+              user: genAI,
+              createdAt: DateTime.now(),
+              text: imageResult.text ?? "",
+              medias: [
+                ChatMedia(
+                  url: imageResult.imageUrl ?? "",
+                  fileName: "grok.png",
+                  type: MediaType.image,
+                  customProperties: imageResult.imageBase64 == null
+                      ? null
+                      : {"bytesBase64": imageResult.imageBase64},
+                ),
+              ],
             ),
-          ],
-        ),
       );
     } else {
       messages.insert(
