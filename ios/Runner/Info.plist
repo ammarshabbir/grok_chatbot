@@ -2,14 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSPhotoLibraryUsageDescription</key>
-	<string>reason</string>
-	    <key>NSCameraUsageDescription</key>
-    	<string>reason</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Allow Grok Chatbot to choose images that you want to analyze in chat.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow Grok Chatbot to capture images when you choose to attach one from the camera.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Mychatbots</string>
+	<string>Grok Chatbot</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,7 +17,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>mychatbots</string>
+	<string>grokchatbot</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

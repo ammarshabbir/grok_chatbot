@@ -1,5 +1,4 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '13.0'
+platform :ios, '13.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -27,6 +26,26 @@ require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelpe
 
 flutter_ios_podfile_setup
 
+def patch_flutter_tts_unknown_default(root_dir, relative_path)
+  plugin_file = File.expand_path(File.join(root_dir, relative_path))
+  return unless File.exist?(plugin_file)
+
+  content = File.read(plugin_file)
+  patched = content
+    .gsub(
+      "        case .enhanced:\n            return \"enhanced\"\n        }\n",
+      "        case .enhanced:\n            return \"enhanced\"\n        @unknown default:\n            return \"default\"\n        }\n"
+    )
+    .gsub(
+      "        case .unspecified:\n            return \"unspecified\"\n        }\n",
+      "        case .unspecified:\n            return \"unspecified\"\n        @unknown default:\n            return \"unspecified\"\n        }\n"
+    )
+
+  return if patched == content
+
+  File.write(plugin_file, patched)
+end
+
 target 'Runner' do
   use_frameworks!
 
@@ -37,6 +56,11 @@ target 'Runner' do
 end
 
 post_install do |installer|
+  patch_flutter_tts_unknown_default(
+    __dir__,
+    '.symlinks/plugins/flutter_tts/ios/Classes/SwiftFlutterTtsPlugin.swift'
+  )
+
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
   end

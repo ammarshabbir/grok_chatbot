@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ChotbotScreen.dart';
-
+import 'chatbot_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,13 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Grok Chatbot',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+        useMaterial3: true,
       ),
-      home: ChatbotScreen(),
+      home: const ChatbotScreen(),
     );
   }
 }
-
-

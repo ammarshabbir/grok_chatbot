@@ -1,11 +1,11 @@
 {
-    "name": "mychatbots",
-    "short_name": "mychatbots",
+    "name": "Grok Chatbot",
+    "short_name": "Grok",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A cross-platform Flutter chatbot app.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
